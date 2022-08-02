@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 144694224
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9a964972e82ea8982e6df275ca36b041
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0a6f9ca6de27cedd10f0532db8ca5f17
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Res/Model/Cube/ground_tiles_grassA_BaseMap.tga
+Dependencies: []

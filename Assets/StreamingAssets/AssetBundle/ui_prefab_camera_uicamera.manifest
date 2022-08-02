@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 2899977724
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c71c4f91eac614c5242f3b261f365511
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 61d262f4dae18014025da01b5f112540
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Res/UI/Camera/UICamera.prefab
+Dependencies: []

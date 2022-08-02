@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 3051763482
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3ac240e57dba446263d25610888abbe4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: cc27a7c2b7aeda57fe404097db2213c0
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Res/Model/Cube/glass.mat
+Dependencies:
+- E:/UnityProjects/Lite/Assets/StreamingAssets/AssetBundle/model_texture_cube
