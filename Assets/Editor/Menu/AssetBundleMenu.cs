@@ -7,7 +7,7 @@ namespace Menu
 {
     public class AssetBundleMenu
     {
-        [MenuItem("Assets/Lite/AssetBundle/Create AssetBundle")]
+        [MenuItem("Lite/AssetBundle/Create AssetBundle")]
         public static void CreateAssetBundle()
         {
             BuildAssetBundleOptions options = BuildAssetBundleOptions.ChunkBasedCompression |
@@ -23,7 +23,7 @@ namespace Menu
             Debug.Log($"创建了{EditorUserBuildSettings.activeBuildTarget} AssetBundle");
         }
 
-        [MenuItem("Assets/Lite/AssetBundle/Clear AssetBundle")]
+        [MenuItem("Lite/AssetBundle/Clear AssetBundle")]
         public static void CleanAssetBundle()
         {
             string path = Path.Combine(Application.streamingAssetsPath, Const.ASSET_BUNDLE_DIR);

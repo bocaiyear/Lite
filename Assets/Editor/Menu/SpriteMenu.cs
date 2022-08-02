@@ -9,7 +9,7 @@ namespace Menu
 {
     public class SpriteMenu
     {
-        [MenuItem("Assets/Lite/Create Atlas")]
+        [MenuItem("Lite/Create Atlas")]
         private static void CreateAtlasByFolder()
         {
             var objects = Selection.objects;

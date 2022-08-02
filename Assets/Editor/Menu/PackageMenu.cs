@@ -8,7 +8,7 @@ namespace Menu
 {
     public class PackageMenu
     {
-        [MenuItem("Assets/Lite/Create Package")]
+        [MenuItem("Lite/Create Package")]
         public static void CreateAssetBundle()
         {
             AssetBundleMenu.CleanAssetBundle();

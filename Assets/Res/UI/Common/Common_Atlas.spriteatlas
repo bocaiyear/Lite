@@ -58,16 +58,8 @@ SpriteAtlas:
     - {fileID: 102900000, guid: e80b539d43abab04090dbc74fa136ef3, type: 3}
     bindAsDefault: 0
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: e3ef6ba144bc48b408c3a90049de93e9, type: 3}
-  - {fileID: 21300000, guid: 33497358fb3a03a408691c35bfb929b8, type: 3}
-  - {fileID: 21300000, guid: aac3ab788cea91542a94d0c4ad7b294e, type: 3}
-  - {fileID: 21300000, guid: 328bff988fb65e64098bbd44199671c8, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - fte_icon_pageturn
-  - fte_bing_level_1
-  - fte_img_guangquan1
-  - fte_bing_level_2
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_Tag: Common_Atlas
   m_IsVariant: 0
   m_IsPlaceholder: 0
