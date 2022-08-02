@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\ranbo\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\ranbo\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_Lite.-162351326.00" t="ExcludeRecursive" />
+    <e p="E:\UnityProjects\Lite" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Editor" t="Include">
+          <e p="Menu" t="Include">
+            <e p="AssetBundleMenu.cs" t="Include" />
+            <e p="PackageMenu.cs" t="Include" />
+            <e p="SpriteMenu.cs" t="Include" />
+          </e>
+          <e p="Processor" t="Include">
+            <e p="AssetBundleProcessor.cs" t="Include" />
+            <e p="ImageImporter.cs" t="Include" />
+          </e>
+          <e p="Util.cs" t="Include" />
+        </e>
+        <e p="Script" t="Include">
+          <e p="Common" t="Include">
+            <e p="Const.cs" t="Include" />
+            <e p="SpriteAtlasLoader.cs" t="Include" />
+          </e>
+          <e p="Logic" t="Include">
+            <e p="App.cs" t="Include" />
+          </e>
+          <e p="Resource" t="Include">
+            <e p="ResourceMgr.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="Lite.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
