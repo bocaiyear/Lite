@@ -53,6 +53,7 @@
      <Compile Include="Assets\Script\Common\Const.cs" />
      <Compile Include="Assets\Script\Common\SpriteAtlasLoader.cs" />
      <Compile Include="Assets\Script\Logic\App.cs" />
+     <Compile Include="Assets\Script\Resource\AssetBundleMgr.cs" />
      <Compile Include="Assets\Script\Resource\ResourceMgr.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>E:/UnityProjects/Lite/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

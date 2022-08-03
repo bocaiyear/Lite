@@ -1,60 +1,48 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Script.Resource
 {
     public class ResourceMgr
     {
-        private static AssetBundleManifest mainFest;
+        private static HashSet<int> loadingAssets = new HashSet<int>();
+        private static Dictionary<int, Object> assetsCache = new Dictionary<int, Object>();
+        
         public static T LoadAsset<T>(string assetPath) where T : Object
         {
             Object asset;
+            int hash = assetPath.GetAssetPathHashCode();
+            if (assetsCache.TryGetValue(hash, out asset))
+            {
+                return asset as T;
+            }
 #if UNITY_EDITOR
-            // asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof(T));
-            asset = LoadFromBundle<T>(assetPath); //for test
+            if (App.Instance.EditerUseBundle)
+            {
+                asset = LoadFromBundle<T>(assetPath);
+            }
+            else
+            {
+                asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof(T));
+            }
+
 #else
             asset = LoadFromBundle<T>(assetPath);
 #endif
+            assetsCache[hash] = asset;
             return asset as T;
         }
-        
-        private static string GetAssetBundlePath(string bundleName)
-        {
-            return Path.Combine(Application.streamingAssetsPath, Const.ASSET_BUNDLE_DIR, bundleName);
-        }
-    
+
         private static T LoadFromBundle<T>(string assetPath) where T : Object
         {
             string bundleName = PathToBundleName(assetPath);
-            AssetBundle assetBundle = LoadAssetBundle(bundleName);
+            AssetBundle assetBundle = AssetBundleMgr.LoadAssetBundle(bundleName);
             return assetBundle.LoadAsset<T>(assetPath);
-        }
-
-        private static AssetBundle LoadAssetBundle(string bundleName)
-        {
-            string[] dependents = Mainfest.GetDirectDependencies(bundleName);
-            foreach (var dependent in dependents)
-            {
-                LoadAssetBundle(dependent);
-            }
-            string bundlePath = GetAssetBundlePath(bundleName);
-            AssetBundle assetBundle = AssetBundle.LoadFromFile(bundlePath);
-            return assetBundle;
-        }
-
-        private static AssetBundleManifest Mainfest
-        {
-            get
-            {
-                if (mainFest != null)
-                {
-                    return mainFest;
-                }
-
-                AssetBundle ab = AssetBundle.LoadFromFile(GetAssetBundlePath(Const.ASSET_BUNDLE_DIR));
-                mainFest = ab.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
-                return mainFest;
-            }
         }
 
         public static string PathToBundleName(string assetPath)
@@ -105,6 +93,78 @@ namespace Script.Resource
             }
 
             return bundleName;
+        }
+        
+        public static void LoadAssetAsync<T>(string assetPath, Action<T> callback) where T : Object
+        {
+            int hash = assetPath.GetAssetPathHashCode();
+            Object asset;
+            if (assetsCache.TryGetValue(hash, out asset))
+            {
+                callback?.Invoke(asset as T);
+                return;
+            }
+            App.Instance.StartCoroutine(LoadAsync<T>(assetPath, hash, callback));
+        }
+
+        private static IEnumerator LoadAsync<T>(string assetPath, int hash, Action<T> callback) where T : Object
+        {
+#if UNITY_EDITOR
+            if (App.Instance.EditerUseBundle)
+            {
+                yield return LoadFromBundleAsync(assetPath, hash, callback);    
+            }
+            else
+            {
+                Object asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof(T));
+                assetsCache[hash] = asset;
+                callback?.Invoke(asset as T);
+            }
+#else
+            yield return LoadFromBundleAsync(assetPath, hash, callback);
+#endif
+        }
+
+        private static IEnumerator LoadFromBundleAsync<T>(string assetPath, int hash, Action<T> callback) where T : Object
+        {
+            while (loadingAssets.Contains(hash))
+            {
+                yield return null;
+            }
+            
+            Object asset;
+            if (assetsCache.TryGetValue(hash, out asset))
+            {
+                callback?.Invoke(asset as T);
+                yield break;
+            }
+            
+            string bundleName = PathToBundleName(assetPath);
+            loadingAssets.Add(hash);
+            AssetBundle assetBundle = null;
+            yield return AssetBundleMgr.LoadAssetBundleAsync(bundleName, bundle =>
+            {
+                assetBundle = bundle;
+            });
+
+            while (assetBundle == null)
+            {
+                yield return null;
+            }
+            var assetRequest = assetBundle.LoadAssetAsync(assetPath);
+            yield return assetRequest;
+            asset = assetRequest.asset;
+            assetsCache[hash] = asset;
+            loadingAssets.Remove(hash);
+            callback?.Invoke(asset as T);
+        }
+    }
+
+    static class R
+    {
+        public static int GetAssetPathHashCode(this string assetPath)
+        {
+            return assetPath.ToLower().GetHashCode();
         }
     }
 }

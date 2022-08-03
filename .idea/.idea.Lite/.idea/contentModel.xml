@@ -28,6 +28,7 @@
             <e p="App.cs" t="Include" />
           </e>
           <e p="Resource" t="Include">
+            <e p="AssetBundleMgr.cs" t="Include" />
             <e p="ResourceMgr.cs" t="Include" />
           </e>
         </e>
