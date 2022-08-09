@@ -52,7 +52,14 @@
   <ItemGroup>
      <Compile Include="Assets\Script\Common\Const.cs" />
      <Compile Include="Assets\Script\Common\SpriteAtlasLoader.cs" />
-     <Compile Include="Assets\Script\Logic\App.cs" />
+     <Compile Include="Assets\Script\Logic\Camera\CameraMgr.cs" />
+     <Compile Include="Assets\Script\Logic\Game.cs" />
+     <Compile Include="Assets\Script\Logic\Input\Input.cs" />
+     <Compile Include="Assets\Script\Logic\Lite.cs" />
+     <Compile Include="Assets\Script\Logic\Map\MapMgr.cs" />
+     <Compile Include="Assets\Script\Logic\Player\Player.cs" />
+     <Compile Include="Assets\Script\Logic\Player\PlayerMgr.cs" />
+     <Compile Include="Assets\Script\Logic\Test.cs" />
      <Compile Include="Assets\Script\Resource\AssetBundleMgr.cs" />
      <Compile Include="Assets\Script\Resource\ResourceMgr.cs" />
  <Reference Include="Unity.Timeline.Editor">

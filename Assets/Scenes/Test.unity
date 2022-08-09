@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6add7758a16211e4d91ab218d8bb38ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EditerUseBundle: 1
 --- !u!4 &87334090 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1430301524076842530, guid: 1fb153a8d9bc6f04484d2cdc8505db0a,

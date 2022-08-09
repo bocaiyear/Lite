@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Script.Logic;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -22,7 +23,7 @@ namespace Script.Resource
                 return asset as T;
             }
 #if UNITY_EDITOR
-            if (App.Instance.EditerUseBundle)
+            if (Lite.Instance.EditerUseBundle)
             {
                 asset = LoadFromBundle<T>(assetPath);
             }
@@ -48,10 +49,11 @@ namespace Script.Resource
         public static string PathToBundleName(string assetPath)
         {
             string bundleName = "";
+            string folderPath = Path.GetDirectoryName(assetPath);
             if (assetPath.StartsWith(Const.UI_ROOT_PATH))
             {
-                string ext = Path.GetExtension(assetPath);
                 string prefix = "";
+                string ext = Path.GetExtension(assetPath);
                 if (ext.Equals(Const.ATLAS_FILE_SUFFIX))
                 {
                     prefix = "ui_atlas";
@@ -63,10 +65,9 @@ namespace Script.Resource
 
                 if (!string.IsNullOrEmpty(prefix))
                 {
-                    string folderPath = Path.GetDirectoryName(assetPath);
                     string relativePath = folderPath.Substring(Const.UI_ROOT_PATH.Length);
-                    string fileName = Path.GetFileNameWithoutExtension(assetPath).ToLower();
                     string dirs = relativePath.Replace("/", "_").ToLower();
+                    string fileName = Path.GetFileNameWithoutExtension(assetPath).ToLower();
                     bundleName = $"{prefix}_{dirs}_{fileName}";
                 }
             }
@@ -86,7 +87,6 @@ namespace Script.Resource
                 {
                     prefix = "model_texture";
                 }
-                string folderPath = Path.GetDirectoryName(assetPath);
                 string relativePath = folderPath.Substring(Const.MODEL_ROOT_PATH.Length);
                 string dirs = relativePath.Replace("/", "_").ToLower();
                 bundleName = $"{prefix}_{dirs}";
@@ -104,13 +104,13 @@ namespace Script.Resource
                 callback?.Invoke(asset as T);
                 return;
             }
-            App.Instance.StartCoroutine(LoadAsync<T>(assetPath, hash, callback));
+            Lite.Instance.StartCoroutine(LoadAsync<T>(assetPath, hash, callback));
         }
 
         private static IEnumerator LoadAsync<T>(string assetPath, int hash, Action<T> callback) where T : Object
         {
 #if UNITY_EDITOR
-            if (App.Instance.EditerUseBundle)
+            if (Lite.Instance.EditerUseBundle)
             {
                 yield return LoadFromBundleAsync(assetPath, hash, callback);    
             }

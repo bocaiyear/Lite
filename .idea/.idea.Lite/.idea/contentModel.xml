@@ -25,7 +25,22 @@
             <e p="SpriteAtlasLoader.cs" t="Include" />
           </e>
           <e p="Logic" t="Include">
-            <e p="App.cs" t="Include" />
+            <e p="Camera" t="Include">
+              <e p="CameraMgr.cs" t="Include" />
+            </e>
+            <e p="Game.cs" t="Include" />
+            <e p="Input" t="Include">
+              <e p="Input.cs" t="Include" />
+            </e>
+            <e p="Lite.cs" t="Include" />
+            <e p="Map" t="Include">
+              <e p="MapMgr.cs" t="Include" />
+            </e>
+            <e p="Player" t="Include">
+              <e p="Player.cs" t="Include" />
+              <e p="PlayerMgr.cs" t="Include" />
+            </e>
+            <e p="Test.cs" t="Include" />
           </e>
           <e p="Resource" t="Include">
             <e p="AssetBundleMgr.cs" t="Include" />

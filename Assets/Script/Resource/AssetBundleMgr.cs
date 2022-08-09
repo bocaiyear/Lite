@@ -3,19 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Script.Resource
 {
     public class AssetBundleMgr
     {
         private static AssetBundleManifest mainFest;
-        private static Dictionary<string, AssetBundle> bundlesCache = new Dictionary<string, AssetBundle>();
+        private static HashSet<int> loadingBundle = new HashSet<int>();
+        private static Dictionary<int, AssetBundle> bundlesCache = new Dictionary<int, AssetBundle>();
 
         public static AssetBundle LoadAssetBundle(string bundleName)
         {
             AssetBundle assetBundle;
-            if (bundlesCache.TryGetValue(bundleName, out assetBundle))
+            int hash = bundleName.GetAssetPathHashCode();
+            if (bundlesCache.TryGetValue(hash, out assetBundle))
             {
                 return assetBundle;
             }
@@ -28,12 +29,18 @@ namespace Script.Resource
             
             string bundlePath = GetAssetBundlePath(bundleName);
             assetBundle = AssetBundle.LoadFromFile(bundlePath);
-            bundlesCache[bundleName] = assetBundle;
+            bundlesCache[hash] = assetBundle;
             return assetBundle;
         }
         
         public static IEnumerator LoadAssetBundleAsync(string bundleName, Action<AssetBundle> callback = null)
         {
+            int hash = bundleName.GetAssetPathHashCode();
+            while (loadingBundle.Contains(hash))
+            {
+                yield return null;
+            }
+            
             string[] dependents = Mainfest.GetDirectDependencies(bundleName);
             foreach (var dependent in dependents)
             {
@@ -41,18 +48,20 @@ namespace Script.Resource
             }
 
             AssetBundle assetBundle;
-            if (bundlesCache.TryGetValue(bundleName, out assetBundle))
+            if (bundlesCache.TryGetValue(hash, out assetBundle))
             {
                 callback?.Invoke(assetBundle);
                 yield break;
             }
             
             string bundlePath = GetAssetBundlePath(bundleName);
+            loadingBundle.Add(hash);
             var bundleRequest = AssetBundle.LoadFromFileAsync(bundlePath);
             yield return bundleRequest;
 
             assetBundle = bundleRequest.assetBundle;
-            bundlesCache[bundleName] = assetBundle;
+            bundlesCache[hash] = assetBundle;
+            loadingBundle.Remove(hash);
             callback?.Invoke(assetBundle);
         }
         
