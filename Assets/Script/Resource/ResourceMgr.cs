@@ -66,30 +66,16 @@ namespace Script.Resource
                 if (!string.IsNullOrEmpty(prefix))
                 {
                     string relativePath = folderPath.Substring(Const.UI_ROOT_PATH.Length);
-                    string dirs = relativePath.Replace("/", "_").ToLower();
+                    string dirs = relativePath.Replace(Path.DirectorySeparatorChar, '_').ToLower();
                     string fileName = Path.GetFileNameWithoutExtension(assetPath).ToLower();
                     bundleName = $"{prefix}_{dirs}_{fileName}";
                 }
             }
             else if (assetPath.StartsWith(Const.MODEL_ROOT_PATH))
             {
-                string ext = Path.GetExtension(assetPath);
-                string prefix = "";
-                if (ext.Equals(Const.MAT_FILE_SUFFIX))
-                {
-                    prefix = "model_mat";
-                } 
-                else if (ext.Equals(Const.PREFAB_FILE_SUFFIX))
-                {
-                    prefix = "model_prefab";
-                }
-                else
-                {
-                    prefix = "model_texture";
-                }
                 string relativePath = folderPath.Substring(Const.MODEL_ROOT_PATH.Length);
-                string dirs = relativePath.Replace("/", "_").ToLower();
-                bundleName = $"{prefix}_{dirs}";
+                string dir = relativePath.Split(Path.DirectorySeparatorChar)[0].ToLower();
+                bundleName = $"model_{dir}";
             }
 
             return bundleName;

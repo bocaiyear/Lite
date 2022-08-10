@@ -8,27 +8,44 @@ namespace Script.Logic
         public static Camera MainCamera;
 
         private static Transform target;
-
-        private static readonly Vector3 cameraRelativePos = new Vector3(0, 25, -80);//摄像机相对target的位置
+        private static bool following;
+        private static readonly Vector3 cameraRelativePos = new Vector3(0, 8, -20);//摄像机相对target的位置
 
         public static void Init()
         {
-            MainCamera.transform.localRotation = Quaternion.Euler(new Vector3(22, 0, 0));
+            MainCamera.transform.localRotation = Quaternion.Euler(new Vector3(20, 0, 0));
         }
 
-        public static void FollowTarget(Transform t)
+        public static void LookTarget(Transform t)
         {
             target = t;
+            RefreshCameraPos();
+        }
+        
+        public static void FollowTarget(Transform t)
+        {
+            LookTarget(t);
+            following = true;
+        }
+
+        public static void StopFollow()
+        {
+            following = false;
         }
 
         public static void LateUpdate()
         {
-            if (target == null)
+            if (target != null && following)
             {
-                return;
+                RefreshCameraPos();
             }
+        }
 
-            MainCamera.transform.localPosition = target.localPosition + cameraRelativePos;
+        private static void RefreshCameraPos()
+        {
+            var pos = target.position + cameraRelativePos;
+            MainCamera.transform.position = pos;
+            MapMgr.SetCenter(pos);
         }
     }
 }

@@ -59,7 +59,6 @@
      <Compile Include="Assets\Script\Logic\Map\MapMgr.cs" />
      <Compile Include="Assets\Script\Logic\Player\Player.cs" />
      <Compile Include="Assets\Script\Logic\Player\PlayerMgr.cs" />
-     <Compile Include="Assets\Script\Logic\Test.cs" />
      <Compile Include="Assets\Script\Resource\AssetBundleMgr.cs" />
      <Compile Include="Assets\Script\Resource\ResourceMgr.cs" />
  <Reference Include="Unity.Timeline.Editor">
