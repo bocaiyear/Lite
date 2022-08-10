@@ -1,7 +1,6 @@
 ﻿
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Script.Logic
 {
@@ -11,15 +10,19 @@ namespace Script.Logic
         public static Player Instance;
         
         [SerializeField]
-        private float speed = 10f;
+        private float speed = 6f;
 
         private Vector3 targetPos;
         private Vector3 moveDir;
         private bool isMoving;
-        
+
+        private Animator animator;
+        private static readonly int Speed = Animator.StringToHash("Speed");
+
         private void Awake()
         {
             Instance = this;
+            animator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -37,7 +40,7 @@ namespace Script.Logic
             var tf = transform;
             moveDir = (targetPos - tf.position).normalized;
             tf.forward = moveDir;
-            
+            animator.SetFloat(Speed, speed);
             CameraMgr.FollowTarget(tf);
         }
 
@@ -45,11 +48,23 @@ namespace Script.Logic
         {
             Transform ts;
             (ts = transform).Translate(moveDir * (speed * Time.deltaTime), Space.World);
-            if ((ts.position - targetPos).sqrMagnitude < .001f)
+            float targetDistance = (ts.position - targetPos).sqrMagnitude;
+            if (targetDistance < .1f)
             {
-                isMoving = false;
-                CameraMgr.StopFollow();
+                Stop();
             }
+        }
+
+        private void Stop()
+        {
+            isMoving = false;
+            animator.SetFloat(Speed, 0);
+            CameraMgr.StopFollow();
+        }
+
+        private void OnFootstep(AnimationEvent e)
+        {
+            
         }
     }
 }
