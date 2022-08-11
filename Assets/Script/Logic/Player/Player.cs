@@ -1,5 +1,8 @@
 ﻿
 using System;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using UnityEngine;
 
 namespace Script.Logic
@@ -8,16 +11,16 @@ namespace Script.Logic
     public class Player : MonoBehaviour
     {
         public static Player Instance;
-        
-        [SerializeField]
-        private float speed = 6f;
 
+        [SerializeField] private float targetSpeed = 6f;
+        
+        private float speed;
         private Vector3 targetPos;
         private Vector3 moveDir;
-        private bool isMoving;
+        private TweenerCore<float,float,FloatOptions> moveTween;
 
         private Animator animator;
-        private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int SpeedId = Animator.StringToHash("Speed");
 
         private void Awake()
         {
@@ -27,7 +30,7 @@ namespace Script.Logic
 
         private void Update()
         {
-            if (isMoving)
+            if (speed > 0)
             {
                 Move();
             }
@@ -36,12 +39,20 @@ namespace Script.Logic
         public void MoveTo(Vector3 targetPos)
         {
             this.targetPos = targetPos;
-            isMoving = true;
             var tf = transform;
             moveDir = (targetPos - tf.position).normalized;
             tf.forward = moveDir;
-            animator.SetFloat(Speed, speed);
             CameraMgr.FollowTarget(tf);
+            
+            if (speed < .01f)
+            {
+                speed = 1f;
+                moveTween = DOTween.To(() => speed, x =>
+                {
+                    speed = x;
+                    animator.SetFloat(SpeedId, speed);
+                }, targetSpeed, 1);
+            }
         }
 
         private void Move()
@@ -57,9 +68,10 @@ namespace Script.Logic
 
         private void Stop()
         {
-            isMoving = false;
-            animator.SetFloat(Speed, 0);
+            speed = 0;
+            animator.SetFloat(SpeedId, speed);
             CameraMgr.StopFollow();
+            moveTween?.Kill();
         }
 
         private void OnFootstep(AnimationEvent e)

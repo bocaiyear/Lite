@@ -305,6 +305,12 @@
  <Reference Include="unityplastic">
  <HintPath>E:/UnityProjects/Lite/Library/PackageCache/com.unity.collab-proxy@1.8.0/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
  </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>E:/UnityProjects/Lite/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>E:/UnityProjects/Lite/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
  <Reference Include="nunit.framework">
  <HintPath>E:/UnityProjects/Lite/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
@@ -667,6 +673,10 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{9d73f187-c49e-269e-41b9-8287b859719d}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{51a5a148-a44e-3f87-d066-509cc7afb1b9}</Project>
       <Name>Assembly-CSharp</Name>

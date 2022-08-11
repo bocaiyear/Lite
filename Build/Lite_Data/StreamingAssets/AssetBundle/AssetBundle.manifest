@@ -1,0 +1,26 @@
+ManifestFileVersion: 0
+CRC: 1266567437
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: ui_atlas_main_main_atlas
+      Dependencies: {}
+    Info_1:
+      Name: ui_atlas_common_common_atlas
+      Dependencies: {}
+    Info_2:
+      Name: ui_prefab_main_win_main
+      Dependencies:
+        Dependency_0: ui_prefab_common_uiitem
+    Info_3:
+      Name: ui_prefab_common_uiitem
+      Dependencies: {}
+    Info_4:
+      Name: model_player
+      Dependencies: {}
+    Info_5:
+      Name: model_sphere
+      Dependencies: {}
+    Info_6:
+      Name: model_cube
+      Dependencies: {}

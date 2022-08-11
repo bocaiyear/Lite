@@ -9,7 +9,7 @@ namespace Script.Logic
     {
         public static void Init()
         {
-            ResourceMgr.LoadAssetAsync<GameObject>("Assets/Res/Model/Cube/Cube.prefab", o =>
+            ResourceMgr.LoadAssetAsync<GameObject>("Assets/Res/Model/Ground/Ground.prefab", o =>
             {
                 GameObject cube = Object.Instantiate(o, Lite.SceneRoot);
                 cube.isStatic = true;

@@ -77,6 +77,10 @@ namespace Script.Resource
                 string dir = relativePath.Split(Path.DirectorySeparatorChar)[0].ToLower();
                 bundleName = $"model_{dir}";
             }
+            else if (assetPath.StartsWith(Const.SHADER_ROOT_PATH))
+            {
+                bundleName = "shader";
+            }
 
             return bundleName;
         }
