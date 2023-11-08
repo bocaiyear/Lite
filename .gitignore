@@ -1,2 +1,7 @@
 ﻿/Assets/StreamingAssets/
 /Build/
+/Library/
+/Temp/
+/UserSettings/
+*.csproj
+*.sln
